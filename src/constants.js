@@ -20,6 +20,9 @@ const MESSAGES = {
   },
 };
 
+const SAVE_DIR = './files';
+
 module.exports = {
   MESSAGES,
+  SAVE_DIR,
 };
