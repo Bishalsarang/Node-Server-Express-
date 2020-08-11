@@ -7,8 +7,8 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 
-const PORT = process.env.PORT;
-const HOST = process.env.HOST;
+const PORT = process.env.PORT || 3001;
+const HOST = process.env.HOST || 'localhost';
 
 const server = http.createServer((request, response) => {
   const [_, operationType, param1, param2] = decodeURIComponent(request.url).split('/');
