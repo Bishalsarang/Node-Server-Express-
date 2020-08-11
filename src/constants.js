@@ -1,7 +1,25 @@
-const SUCCESS = 200;
-const NOT_FOUND = 404;
+const MESSAGES = {
+  read: {
+    success: 'File read successfully',
+    fail: 'Failed to read file',
+  },
+
+  write: {
+    success: 'File successfully written',
+    fail: 'Failed to write file',
+  },
+
+  rename: {
+    success: 'File renamed successfully',
+    fail: 'Failed to rename file',
+  },
+
+  delete: {
+    success: 'File successfully deleted',
+    fail: 'Failed to delete file',
+  },
+};
 
 module.exports = {
-  SUCCESS,
-  NOT_FOUND,
+  MESSAGES,
 };

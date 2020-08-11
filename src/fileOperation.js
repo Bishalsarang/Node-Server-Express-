@@ -1,5 +1,10 @@
 const fs = require('fs');
 
+/**
+ *
+ * @param {function} reject
+ * @param {function} resolve
+ */
 function handlePromise(reject, resolve) {
   return (err, done) => (err ? reject(err) : resolve(done));
 }
