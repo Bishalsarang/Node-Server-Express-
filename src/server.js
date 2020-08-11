@@ -1,13 +1,11 @@
 const http = require('http');
 
+const env = require('./env');
+
 const constants = require('./constants');
 const fileHandler = require('./fileHandler');
 
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
-}
-
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3003;
 const HOST = process.env.HOST || 'localhost';
 
 const server = http.createServer((request, response) => {
