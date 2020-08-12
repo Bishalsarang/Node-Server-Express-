@@ -3,7 +3,7 @@ const app = express();
 
 let routes = require('./routes');
 
-const env = require('./env');
+const env = require('./config/env');
 
 const PORT = process.env.PORT || 3003;
 const HOST = process.env.HOST || 'localhost';
