@@ -1,5 +1,5 @@
 const constants = require('../../constants');
-const fileOperation = require('../../fileOperation');
+const fileOperation = require('../../utils/fileOperation');
 
 const write = async (req, res) => {
   const { fileName, content } = req.params;

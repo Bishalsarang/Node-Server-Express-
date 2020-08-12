@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const { SAVE_DIR } = require('./constants');
+const { SAVE_DIR } = require('../constants');
 
 if (!fs.existsSync(SAVE_DIR)) {
   fs.mkdirSync(SAVE_DIR);

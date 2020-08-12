@@ -1,5 +1,5 @@
 const constants = require('../../constants');
-const fileOperation = require('../../fileOperation');
+const fileOperation = require('../../utils/fileOperation');
 
 const rename = async (req, res) => {
   const { oldFileName, newFileName } = req.params;
