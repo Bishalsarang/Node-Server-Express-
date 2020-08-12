@@ -3,8 +3,8 @@ const app = express();
 
 const env = require('./env');
 
-const fileOperation = require('./fileOperation');
 const constants = require('./constants');
+const fileOperation = require('./fileOperation');
 
 const PORT = process.env.PORT || 3003;
 const HOST = process.env.HOST || 'localhost';
@@ -28,9 +28,18 @@ app.get('/read/:fileName', async (req, res) => {
 
   try {
     const data = await fileOperation.read(fileName);
-    res.status(200).end(`${successMessage} ${fileName} \n Content \n ${data}`);
+
+    res.status(200).json({
+      data,
+      fileName,
+      success: true,
+      message: successMessage,
+    });
   } catch (err) {
-    throw res.end(`${failedMessage} ${err}`);
+    throw res.json({
+      success: false,
+      message: failedMessage + err,
+    });
   }
 });
 
@@ -40,9 +49,17 @@ app.get('/write/:fileName/:content', async (req, res) => {
 
   try {
     await fileOperation.write(fileName, content);
-    res.end(`${successMessage} ${fileName}`);
+
+    res.status(200).json({
+      fileName,
+      success: true,
+      message: successMessage,
+    });
   } catch (err) {
-    throw res.end(`${failedMessage} ${fileName} ${err}`);
+    throw res.json({
+      success: false,
+      message: failedMessage + err,
+    });
   }
 });
 
@@ -52,9 +69,18 @@ app.get('/rename/:oldFileName/:newFileName', async (req, res) => {
 
   try {
     await fileOperation.rename(oldFileName, newFileName);
-    res.end(`${successMessage} from ${oldFileName} to ${newFileName}`);
+
+    res.json({
+      oldFileName,
+      newFileName,
+      success: true,
+      message: successMessage,
+    });
   } catch (err) {
-    throw res.end(`${failedMessage} from ${oldFileName} to ${newFileName} ${err}`);
+    throw res.json({
+      success: false,
+      message: failedMessage + err,
+    });
   }
 });
 
@@ -64,9 +90,17 @@ app.get('/delete/:fileName', async (req, res) => {
 
   try {
     await fileOperation.del(fileName);
-    res.end(`${successMessage} ${fileName}`);
+
+    res.json({
+      fileName,
+      success: true,
+      message: successMessage,
+    });
   } catch (err) {
-    throw res.end(`${failedMessage} ${err}`);
+    throw res.json({
+      success: false,
+      message: failedMessage + err,
+    });
   }
 });
 
