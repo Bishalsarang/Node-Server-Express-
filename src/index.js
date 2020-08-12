@@ -22,50 +22,58 @@ app.get('/', (req, res) => {
   );
 });
 
-app.get('/read/:fileName', (req, res) => {
+app.get('/read/:fileName', async (req, res) => {
   const { fileName } = req.params;
   const { success: successMessage, fail: failedMessage } = constants.MESSAGES.read;
 
-  fileOperation
-    .read(fileName)
-    .then((data) => res.end(`${successMessage} ${fileName} \n Content \n ${data}`))
-    .catch((err) => res.end(`${failedMessage} ${err}`));
+  try {
+    const data = await fileOperation.read(fileName);
+    res.status(200).end(`${successMessage} ${fileName} \n Content \n ${data}`);
+  } catch (err) {
+    throw res.end(`${failedMessage} ${err}`);
+  }
 });
 
-app.get('/write/:fileName/:content', (req, res) => {
+app.get('/write/:fileName/:content', async (req, res) => {
   const { fileName, content } = req.params;
   const { success: successMessage, fail: failedMessage } = constants.MESSAGES.write;
 
-  fileOperation
-    .write(fileName, content)
-    .then(() => res.end(`${successMessage} ${fileName}`))
-    .catch((err) => res.end(`${failedMessage} ${fileName} ${err}`));
+  try {
+    await fileOperation.write(fileName, content);
+    res.end(`${successMessage} ${fileName}`);
+  } catch (err) {
+    throw res.end(`${failedMessage} ${fileName} ${err}`);
+  }
 });
 
-app.get('/rename/:oldFileName/:newFileName', (req, res) => {
+app.get('/rename/:oldFileName/:newFileName', async (req, res) => {
   const { oldFileName, newFileName } = req.params;
   const { success: successMessage, fail: failedMessage } = constants.MESSAGES.rename;
 
-  fileOperation
-    .rename(oldFileName, newFileName)
-    .then(() => res.end(`${successMessage} from ${oldFileName} to ${newFileName}`))
-    .catch((err) => res.end(`${failedMessage} from ${oldFileName} to ${newFileName} ${err}`));
+  try {
+    await fileOperation.rename(oldFileName, newFileName);
+    res.end(`${successMessage} from ${oldFileName} to ${newFileName}`);
+  } catch (err) {
+    throw res.end(`${failedMessage} from ${oldFileName} to ${newFileName} ${err}`);
+  }
 });
 
-app.get('/delete/:fileName', (req, res) => {
+app.get('/delete/:fileName', async (req, res) => {
   const { fileName } = req.params;
   const { success: successMessage, fail: failedMessage } = constants.MESSAGES.read;
 
-  fileOperation
-    .del(fileName)
-    .then(() => res.end(`${successMessage} ${fileName}`))
-    .catch((err) => res.end(`${failedMessage} ${err}`));
+  try {
+    await fileOperation.del(fileName);
+    res.end(`${successMessage} ${fileName}`);
+  } catch (err) {
+    throw res.end(`${failedMessage} ${err}`);
+  }
 });
 
 app.listen(app.get('port'), app.get('host'), (err) => {
   if (err) {
     console.log('Error creating server');
   } else {
-    console.log(`Listening on ${app.get('host')}:${app.get('port')} \nPress CTRL + C to exit server`);
+    console.log(`Listening on http://${app.get('host')}:${app.get('port')} \nPress CTRL + C to exit server`);
   }
 });
