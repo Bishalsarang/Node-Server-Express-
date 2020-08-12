@@ -1,22 +1,22 @@
 const MESSAGES = {
   read: {
-    success: 'File read successfully',
     fail: 'Failed to read file',
+    success: 'File read successfully',
   },
 
   write: {
-    success: 'File successfully written',
     fail: 'Failed to write file',
+    success: 'File successfully written',
   },
 
   rename: {
-    success: 'File renamed successfully',
     fail: 'Failed to rename file',
+    success: 'File renamed successfully',
   },
 
   delete: {
-    success: 'File successfully deleted',
     fail: 'Failed to delete file',
+    success: 'File successfully deleted',
   },
 };
 
